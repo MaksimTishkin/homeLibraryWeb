@@ -1,0 +1,13 @@
+body {
+    background-color:rgb(218, 214, 214);
+}
+.mainIcon {
+    width: 90%;
+    padding-left: 40%;
+}
+.container-xxl {
+    margin-top: 15%;
+}
+p {
+    color: red;
+}

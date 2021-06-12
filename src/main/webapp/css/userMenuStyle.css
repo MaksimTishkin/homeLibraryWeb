@@ -1,0 +1,15 @@
+.icon {
+    padding-left: 15%;
+}
+.logout {
+    padding-left: 30%;
+}
+.welcome {
+    padding-right: 45%;
+}
+.error {
+    color: red;
+}
+.result {
+    color: green;
+}

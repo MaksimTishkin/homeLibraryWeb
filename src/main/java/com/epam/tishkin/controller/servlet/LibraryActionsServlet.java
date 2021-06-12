@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/controller")
-public class FrontController extends HttpServlet {
+public class LibraryActionsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
@@ -29,7 +29,7 @@ public class FrontController extends HttpServlet {
             String view = action.execute(request);
             request.getRequestDispatcher(view).forward(request, response);
         } catch (IOException | ServletException | ClassNotFoundException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 }

@@ -15,7 +15,7 @@
                 <img class="mainIcon" src="img/icon.png">
             </div>
             <div class="col-5">
-                <form name="LoginForm" action="controller">
+                <form name="LoginForm" action="authorization">
                     <input type="hidden" name="command" value="login">
                     <div class="row mb-3">
                         <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>

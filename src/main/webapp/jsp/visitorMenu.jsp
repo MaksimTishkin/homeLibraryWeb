@@ -22,7 +22,7 @@
                     Hello, ${user.getLogin()}
                   </div>
                   <div class="col align-self-center">
-                    <a href="controller?command=logout">Logout</a>
+                    <a href="authorization?command=logout">Logout</a>
                   </div>
               </div>
             </div>

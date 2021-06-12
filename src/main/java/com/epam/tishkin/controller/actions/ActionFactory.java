@@ -9,8 +9,6 @@ public class ActionFactory {
     private static final Map<String, Action> actions = new HashMap<>();
 
     static {
-        actions.put("login", new LoginAction());
-        actions.put("logout", new LogoutAction());
         actions.put("addBook", new AddBookAction());
         actions.put("deleteBook", new DeleteBookAction());
         actions.put("addAuthor", new AddAuthorAction());

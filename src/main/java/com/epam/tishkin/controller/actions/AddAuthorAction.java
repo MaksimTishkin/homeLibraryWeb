@@ -10,17 +10,20 @@ public class AddAuthorAction implements Action {
     private final LibraryDAO libraryDAO = new LibraryDatabaseDAO();
 
     public String execute(HttpServletRequest request) {
+        String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
+        String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
         String authorName = request.getParameter("name");
         if (authorName.isEmpty()) {
-            request.setAttribute("incorrectInputData", "Incorrect author's name");
+
+            request.setAttribute(incorrectAttr, "Incorrect author's name");
             return ConfigurationManager.getProperty("visitorPage");
         }
         if (libraryDAO.addAuthor(authorName)) {
             String completeAction = authorName + " : author added";
-            request.setAttribute("actionResult", completeAction);
+            request.setAttribute(resultAttr, completeAction);
             HistoryWriter.write(completeAction);
         } else {
-            request.setAttribute("actionResult", authorName +
+            request.setAttribute(resultAttr, authorName +
                     " : this author is already in the database");
         }
         return ConfigurationManager.getProperty("visitorPage");

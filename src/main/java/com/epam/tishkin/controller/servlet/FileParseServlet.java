@@ -1,6 +1,7 @@
 package com.epam.tishkin.controller.servlet;
 
 import com.epam.tishkin.controller.ConfigurationManager;
+import com.epam.tishkin.controller.HistoryWriter;
 import com.epam.tishkin.dao.LibraryDAO;
 import com.epam.tishkin.dao.impl.LibraryDatabaseDAO;
 import jakarta.servlet.ServletException;
@@ -20,18 +21,24 @@ public class FileParseServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+        String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
+        String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
         try {
             Part filePart = request.getPart("file");
             String fileName = filePart.getSubmittedFileName();
             if (fileName.endsWith("csv")) {
                 int numberOfBooksAdded = addBooksFromCSV(filePart);
-                request.setAttribute("actionResult", "number of books added: " + numberOfBooksAdded);
+                String completeAction = "number of books added from CSV: " + numberOfBooksAdded;
+                request.setAttribute(resultAttr, completeAction);
+                HistoryWriter.write(completeAction);
             } else if (fileName.endsWith("json")) {
                 int numberOfBooksAdded = addBooksFromJson(filePart);
-                request.setAttribute("actionResult", "number of books added: " + numberOfBooksAdded);
+                String completeAction = "number of books added from JSON: " + numberOfBooksAdded;
+                request.setAttribute(resultAttr, completeAction);
+                HistoryWriter.write(completeAction);
             }
             else {
-                request.setAttribute("incorrectInputData", "Incorrect file format");
+                request.setAttribute(incorrectAttr, "Incorrect file format");
             }
             String page = ConfigurationManager.getProperty("visitorPage");
             request.getRequestDispatcher(page).forward(request, response);

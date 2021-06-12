@@ -13,12 +13,14 @@ public class ShowBookmarksAction implements Action {
     private final UserDAO userDAO = new UserDatabaseDAO();
 
     public String execute(HttpServletRequest request) {
+        String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
+        String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
         User user = (User) request.getSession().getAttribute("user");
         List<Bookmark> foundBookmarks = userDAO.showBooksWithBookmarks(user);
         if (foundBookmarks.isEmpty()) {
-            request.setAttribute("actionResult", "There is no bookmark");
+            request.setAttribute(incorrectAttr, "There is no bookmark");
         } else {
-            request.setAttribute("actionResult", foundBookmarks);
+            request.setAttribute(resultAttr, foundBookmarks);
         }
         return ConfigurationManager.getProperty("visitorPage");
     }

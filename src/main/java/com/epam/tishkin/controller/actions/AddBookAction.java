@@ -13,38 +13,40 @@ public class AddBookAction implements Action {
     private final LibraryDAO libraryDAO = new LibraryDatabaseDAO();
 
     public String execute(HttpServletRequest request) {
+        String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
+        String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
         String title = request.getParameter("title");
         if (title.isEmpty()) {
-            request.setAttribute("incorrectInputData", "Incorrect book title");
+            request.setAttribute(incorrectAttr, "Incorrect book title");
             return ConfigurationManager.getProperty("visitorPage");
         }
         String author = request.getParameter("author");
         if (author.isEmpty()) {
-            request.setAttribute("incorrectInputData", "Incorrect author of the book");
+            request.setAttribute(incorrectAttr, "Incorrect author of the book");
             return ConfigurationManager.getProperty("visitorPage");
         }
         String ISBNumber = request.getParameter("ISBNumber");
         if (!isCorrectNumber(ISBNumber)) {
-            request.setAttribute("incorrectInputData", "Incorrect ISBN Number");
+            request.setAttribute(incorrectAttr, "Incorrect ISBN Number");
             return ConfigurationManager.getProperty("visitorPage");
         }
         int year = isCorrectYear(request);
         if (year < 0) {
-            request.setAttribute("incorrectInputData", "Incorrect year of publication");
+            request.setAttribute(incorrectAttr, "Incorrect year of publication");
             return ConfigurationManager.getProperty("visitorPage");
         }
         int pages = isCorrectPagesNumber(request);
         if (pages < 0) {
-            request.setAttribute("incorrectInputData", "Incorrect number of pages");
+            request.setAttribute(incorrectAttr, "Incorrect number of pages");
             return ConfigurationManager.getProperty("visitorPage");
         }
         Book book = new Book(title, ISBNumber, year, pages);
         if (libraryDAO.addBook(book, author)) {
             String completeAction = book.getTitle() + " : book added";
-            request.setAttribute("actionResult", completeAction);
+            request.setAttribute(resultAttr, completeAction);
             HistoryWriter.write(completeAction);
         } else {
-            request.setAttribute("actionResult", book.getTitle() +
+            request.setAttribute(resultAttr, book.getTitle() +
                     " : this book is already in the database");
         }
         return ConfigurationManager.getProperty("visitorPage");

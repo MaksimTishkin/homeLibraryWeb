@@ -12,26 +12,28 @@ public class SearchBookByYearPagesNumberAndTitle implements Action {
     private final LibraryDAO libraryDAO = new LibraryDatabaseDAO();
 
     public String execute(HttpServletRequest request) {
+        String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
+        String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
         String title = request.getParameter("title");
         if (title.isEmpty()) {
-            request.setAttribute("incorrectInputData", "Incorrect book title");
+            request.setAttribute(incorrectAttr, "Incorrect book title");
             return ConfigurationManager.getProperty("visitorPage");
         }
         int year = isCorrectYear(request);
         if (year < 0) {
-            request.setAttribute("incorrectInputData", "Incorrect year of publication");
+            request.setAttribute(incorrectAttr, "Incorrect year of publication");
             return ConfigurationManager.getProperty("visitorPage");
         }
         int pages = isCorrectPagesNumber(request);
         if (pages < 0) {
-            request.setAttribute("incorrectInputData", "Incorrect number of pages");
+            request.setAttribute(incorrectAttr, "Incorrect number of pages");
             return ConfigurationManager.getProperty("visitorPage");
         }
         List<Book> foundBooks = libraryDAO.searchBookByYearPagesNumberAndTitle(year, pages, title);
         if (foundBooks.isEmpty()) {
-            request.setAttribute("actionResult", "No books found");
+            request.setAttribute(incorrectAttr, "No books found");
         } else {
-            request.setAttribute("actionResult", foundBooks);
+            request.setAttribute(resultAttr, foundBooks);
         }
         return ConfigurationManager.getProperty("visitorPage");
     }

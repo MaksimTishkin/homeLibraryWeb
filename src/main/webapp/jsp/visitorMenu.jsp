@@ -31,10 +31,12 @@
     <main>
         <div class="container text-center">
             <p class="error">${incorrectInputData}</p>
+            <div class="result">
             <c:forEach var="message" items="${actionResult}">
                 <c:out value="${message}"/>
-                    <br/>
-                </c:forEach>
+                <br/>
+            </c:forEach>
+            </div>
         </div>
         <div class="container content">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBook">Add Book</button>
@@ -156,36 +158,12 @@
                     </div>
                 </div>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBooksFromCSV">Add books from CSV catalog</button>
-                <div class="modal fade" id="addBooksFromCSV" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBooksFromCatalog">Add books from CSV or JSON catalog</button>
+                <div class="modal fade" id="addBooksFromCatalog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add books from CSV catalog</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="fileParse" method="POST" enctype="multipart/form-data">
-                                    <div class="mb-3">
-                                        <label for="file" class="col-form-label">Upload file:</label>
-                                        <input type="file" class="form-control" name="file" id="file">
-                                    </div>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Send</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBooksFromJson">Add books from JSON catalog</button>
-                <div class="modal fade" id="addBooksFromJson" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add books from JSON catalog</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Add books from CSV or JSON catalog</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

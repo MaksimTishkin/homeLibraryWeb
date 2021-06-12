@@ -13,15 +13,17 @@ public class LoginAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request) {
+        String errorAuthorizationAttr = ConfigurationManager.getProperty("errorAuthorizationAttr");
         String login = request.getParameter("name");
         String password = request.getParameter("password");
         User user = userDAO.userAuthorization(login, password);
         if (user != null) {
             request.getSession().setAttribute("user", user);
             HistoryWriter.setUser(user);
+            HistoryWriter.write("is logged in");
             return ConfigurationManager.getProperty("visitorPage");
         }
-        request.setAttribute("errorAuthorization", "Incorrect login/password");
+        request.setAttribute(errorAuthorizationAttr, "Incorrect login/password");
         return ConfigurationManager.getProperty("loginPage");
     }
 }

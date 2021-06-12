@@ -12,12 +12,14 @@ public class SearchBookForISBNumberAction implements Action {
     private final LibraryDAO libraryDAO = new LibraryDatabaseDAO();
 
     public String execute(HttpServletRequest request) {
+        String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
+        String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
         String ISBNumber = request.getParameter("ISBNumber");
         List<Book> foundBooks = libraryDAO.searchBookForISBN(ISBNumber);
         if (foundBooks.isEmpty()) {
-            request.setAttribute("actionResult", "No books found");
+            request.setAttribute(incorrectAttr, "No books found");
         } else {
-            request.setAttribute("actionResult", foundBooks);
+            request.setAttribute(resultAttr, foundBooks);
         }
         return ConfigurationManager.getProperty("visitorPage");
     }

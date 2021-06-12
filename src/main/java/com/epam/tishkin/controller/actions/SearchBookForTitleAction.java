@@ -12,12 +12,14 @@ public class SearchBookForTitleAction implements Action {
     private final LibraryDAO libraryDAO = new LibraryDatabaseDAO();
 
     public String execute(HttpServletRequest request) {
+        String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
+        String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
         String title = request.getParameter("title");
         List<Book> findBooks = libraryDAO.searchBookForTitle(title);
         if (findBooks.isEmpty()) {
-            request.setAttribute("actionResult", "No books found");
+            request.setAttribute(incorrectAttr, "No books found");
         } else {
-            request.setAttribute("actionResult", findBooks);
+            request.setAttribute(resultAttr, findBooks);
         }
         return ConfigurationManager.getProperty("visitorPage");
     }

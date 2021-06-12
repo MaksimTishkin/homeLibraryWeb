@@ -12,8 +12,9 @@ public class ShowHistoryAction implements Action {
     private final UserDAO userDAO = new UserDatabaseDAO();
 
     public String execute(HttpServletRequest request) {
+        String historyAttr = ConfigurationManager.getProperty("historyAttr");
         List<String> fullHistory = userDAO.showHistory();
-        request.setAttribute("historyList", fullHistory);
+        request.setAttribute(historyAttr, fullHistory);
         return ConfigurationManager.getProperty("historyPage");
     }
 }

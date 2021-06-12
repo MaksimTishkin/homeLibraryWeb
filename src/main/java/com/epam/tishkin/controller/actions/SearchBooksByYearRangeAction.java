@@ -13,6 +13,8 @@ public class SearchBooksByYearRangeAction implements Action {
     private final LibraryDAO libraryDAO = new LibraryDatabaseDAO();
 
     public String execute(HttpServletRequest request) {
+        String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
+        String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
         String firstYear = request.getParameter("firstYear");
         String secondYear= request.getParameter("secondYear");
         int startYear = isCorrectYear(firstYear);
@@ -20,12 +22,12 @@ public class SearchBooksByYearRangeAction implements Action {
         if (startYear > 0 && finishYear > 0 && startYear <= finishYear) {
             List<Book> foundBooks = libraryDAO.searchBooksByYearRange(startYear, finishYear);
             if (foundBooks.isEmpty()) {
-                request.setAttribute("actionResult", "No books found");
+                request.setAttribute(incorrectAttr, "No books found");
             } else {
-                request.setAttribute("actionResult", foundBooks);
+                request.setAttribute(resultAttr, foundBooks);
             }
         } else {
-            request.setAttribute("incorrectInputData", "Incorrect year value");
+            request.setAttribute(incorrectAttr, "Incorrect year value");
         }
         return ConfigurationManager.getProperty("visitorPage");
     }

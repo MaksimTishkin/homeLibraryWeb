@@ -19,7 +19,7 @@ import java.util.Optional;
 public class UserDatabaseDAO implements UserDAO {
 
     public User userAuthorization(String login, String password) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = HibernateUtil.getSession()) {
             User user = session.get(User.class, login);
             if (user != null) {
                 if (user.getPassword().equals(password)) {
@@ -31,7 +31,7 @@ public class UserDatabaseDAO implements UserDAO {
     }
 
     public boolean addUser(String login, String password) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = HibernateUtil.getSession()) {
             Transaction transaction = session.beginTransaction();
             User visitor = session.get(User.class, login);
             if (visitor != null) {
@@ -45,7 +45,7 @@ public class UserDatabaseDAO implements UserDAO {
     }
 
     public boolean blockUser(String login) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = HibernateUtil.getSession()) {
             Transaction transaction = session.beginTransaction();
             User visitor = session.get(User.class, login);
             if (visitor == null) {
@@ -72,7 +72,7 @@ public class UserDatabaseDAO implements UserDAO {
 
     public boolean addBookmark(String bookTitle, int pageNumber, User user) {
         LibraryDAO libraryDAO = new LibraryDatabaseDAO();
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = HibernateUtil.getSession()) {
             List<Book> foundBooks = libraryDAO.findBookByFullTitle(bookTitle);
             if (foundBooks.isEmpty()) {
                 return false;
@@ -97,7 +97,7 @@ public class UserDatabaseDAO implements UserDAO {
     }
 
     public boolean deleteBookmark(String bookTitle, User user) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = HibernateUtil.getSession()) {
             Transaction transaction = session.beginTransaction();
             user = session.get(User.class, user.getLogin());
             Optional<Bookmark> bookmark = user.getBookmarks()
@@ -116,7 +116,7 @@ public class UserDatabaseDAO implements UserDAO {
 
     public List<Bookmark> showBooksWithBookmarks(User user) {
         List<Bookmark> bookmarks;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = HibernateUtil.getSession()) {
             user = session.get(User.class, user.getLogin());
             bookmarks = user.getBookmarks();
         }

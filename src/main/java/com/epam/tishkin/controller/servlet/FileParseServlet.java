@@ -47,7 +47,7 @@ public class FileParseServlet extends HttpServlet {
         }
     }
 
-    private int addBooksFromCSV(Part filePart) {
+    private synchronized int addBooksFromCSV(Part filePart) {
         try (OutputStream outputStream = new FileOutputStream("catalog.csv", false)) {
             InputStream fileContent = filePart.getInputStream();
             int read;
@@ -61,7 +61,7 @@ public class FileParseServlet extends HttpServlet {
         return libraryDAO.addBooksFromCSV("catalog.csv");
     }
 
-    private int addBooksFromJson(Part filePart) {
+    private synchronized int addBooksFromJson(Part filePart) {
         try (OutputStream outputStream = new FileOutputStream("catalog.json", false)) {
             InputStream fileContent = filePart.getInputStream();
             int read;

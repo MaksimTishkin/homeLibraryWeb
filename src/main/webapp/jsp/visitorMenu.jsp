@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="container content">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBook">Add Book</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addBook">Add Book</button>
             <div class="modal fade" id="addBook" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -79,7 +79,7 @@
                     </div>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteBook">Delete Book</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#deleteBook">Delete Book</button>
             <div class="modal fade" id="deleteBook" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -108,7 +108,7 @@
                 </div>
             </div>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAuthor">Add Author</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addAuthor">Add Author</button>
                 <div class="modal fade" id="addAuthor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -133,7 +133,7 @@
                     </div>
                 </div>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteAuthor">Delete Author</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#deleteAuthor">Delete Author</button>
                 <div class="modal fade" id="deleteAuthor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -158,7 +158,7 @@
                     </div>
                 </div>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBooksFromCatalog">Add books from CSV or JSON catalog</button>
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addBooksFromCatalog">Add books from CSV or JSON catalog</button>
                 <div class="modal fade" id="addBooksFromCatalog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -181,8 +181,10 @@
                         </div>
                     </div>
                 </div>
+              </div>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchBookforTitle">Search books for title</button>
+              <div class="container content">
+              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#searchBookforTitle">Search books for title</button>
                 <div class="modal fade" id="searchBookforTitle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -207,7 +209,7 @@
                     </div>
                 </div>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchBookforAuthor">Search books for author</button>
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#searchBookforAuthor">Search books for author</button>
                 <div class="modal fade" id="searchBookforAuthor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -232,7 +234,7 @@
                     </div>
                 </div>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchBookForISBNumber">Search books for ISBN Number</button>
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#searchBookForISBNumber">Search books for ISBN Number</button>
                 <div class="modal fade" id="searchBookForISBNumber" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -257,7 +259,7 @@
                     </div>
                 </div>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchBooksByYearRange">Search books by year range</button>
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#searchBooksByYearRange">Search books by year range</button>
                 <div class="modal fade" id="searchBooksByYearRange" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -286,7 +288,7 @@
                     </div>
                 </div>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchBookByYearPagesNumberAndTitle">Search books by year, page's number and title</button>
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#searchBookByYearPagesNumberAndTitle">Search books by year, page's number and title</button>
                 <div class="modal fade" id="searchBookByYearPagesNumberAndTitle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -319,7 +321,7 @@
                     </div>
                 </div>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchBookByFullTitle">Search book by full title</button>
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#searchBookByFullTitle">Search book by full title</button>
             <div class="modal fade" id="searchBookByFullTitle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -343,8 +345,9 @@
                     </div>
                 </div>
             </div>
-
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBookmark">Add a bookmark to a book</button>
+          </div>
+          <div class="container content">
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addBookmark">Add a bookmark to a book</button>
             <div class="modal fade" id="addBookmark" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -373,7 +376,7 @@
                 </div>
             </div>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteBookmark">Delete a bookmark from a book</button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#deleteBookmark">Delete a bookmark from a book</button>
             <div class="modal fade" id="deleteBookmark" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -400,11 +403,12 @@
 
             <form action="controller" method="POST">
                <input type="hidden" name="command" value="showBookmarks">
-                <button type="submit" class="btn btn-primary" data-toggle="modal">Show my bookmarks</button>
+                <button type="submit" class="btn btn-info" data-toggle="modal">Show my bookmarks</button>
             </form>
+          </div>
             <c:if test="${user.getRole() eq 'ADMINISTRATOR'}">
                 <div class="container content">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUser">Add new User</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#addUser">Add new User</button>
                     <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -433,7 +437,7 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#blockUser">Block user</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#blockUser">Block user</button>
                     <div class="modal fade" id="blockUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -460,7 +464,7 @@
 
                     <form action="controller">
                         <input type="hidden" name="command" value="showHistory">
-                        <button type="submit" class="btn btn-primary" data-toggle="modal">Show history</button>
+                        <button type="submit" class="btn btn-danger" data-toggle="modal">Show history</button>
                     </form>
                 </div>
             </c:if>

@@ -10,12 +10,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 @WebServlet("/authorization")
 public class AuthorizationServlet extends HttpServlet {
     private final UserDAO userDAO = new UserDatabaseDAO();
+    private final static Logger logger = LogManager.getLogger(AuthorizationServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
@@ -29,7 +32,7 @@ public class AuthorizationServlet extends HttpServlet {
             }
             request.getRequestDispatcher(view).forward(request, response);
         } catch (IOException | ServletException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 
@@ -40,8 +43,7 @@ public class AuthorizationServlet extends HttpServlet {
         User user = userDAO.userAuthorization(login, password);
         if (user != null) {
             request.getSession().setAttribute("user", user);
-            HistoryWriter.setUser(user);
-            HistoryWriter.write("is logged in");
+            HistoryWriter.write(request, "is logged in");
             return ConfigurationManager.getProperty("visitorPage");
         }
         request.setAttribute(errorAuthorizationAttr, "Incorrect login/password");
@@ -49,7 +51,7 @@ public class AuthorizationServlet extends HttpServlet {
     }
 
     private String logout(HttpServletRequest request) {
-        HistoryWriter.write("is logged out");
+        HistoryWriter.write(request, "is logged out");
         request.getSession().invalidate();
         return ConfigurationManager.getProperty("indexPage");
     }

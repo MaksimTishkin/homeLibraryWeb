@@ -44,7 +44,7 @@ public class AddBookAction implements Action {
         if (libraryDAO.addBook(book, author)) {
             String completeAction = book.getTitle() + " : book added";
             request.setAttribute(resultAttr, completeAction);
-            HistoryWriter.write(completeAction);
+            HistoryWriter.write(request, completeAction);
         } else {
             request.setAttribute(resultAttr, book.getTitle() +
                     " : this book is already in the database");

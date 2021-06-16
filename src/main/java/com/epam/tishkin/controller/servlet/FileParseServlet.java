@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 
@@ -18,6 +20,7 @@ import java.io.*;
 @MultipartConfig
 public class FileParseServlet extends HttpServlet {
     private final LibraryDAO libraryDAO = new LibraryDatabaseDAO();
+    private final static Logger logger = LogManager.getLogger(FileParseServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
@@ -30,12 +33,12 @@ public class FileParseServlet extends HttpServlet {
                 int numberOfBooksAdded = addBooksFromCSV(filePart);
                 String completeAction = "number of books added from CSV: " + numberOfBooksAdded;
                 request.setAttribute(resultAttr, completeAction);
-                HistoryWriter.write(completeAction);
+                HistoryWriter.write(request, completeAction);
             } else if (fileName.endsWith("json")) {
                 int numberOfBooksAdded = addBooksFromJson(filePart);
                 String completeAction = "number of books added from JSON: " + numberOfBooksAdded;
                 request.setAttribute(resultAttr, completeAction);
-                HistoryWriter.write(completeAction);
+                HistoryWriter.write(request, completeAction);
             }
             else {
                 request.setAttribute(incorrectAttr, "Incorrect file format");
@@ -43,7 +46,7 @@ public class FileParseServlet extends HttpServlet {
             String page = ConfigurationManager.getProperty("visitorPage");
             request.getRequestDispatcher(page).forward(request, response);
         } catch (ServletException | IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 
@@ -56,7 +59,7 @@ public class FileParseServlet extends HttpServlet {
                 outputStream.write(bytes, 0, read);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return libraryDAO.addBooksFromCSV("catalog.csv");
     }
@@ -70,7 +73,7 @@ public class FileParseServlet extends HttpServlet {
                 outputStream.write(bytes, 0, read);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return libraryDAO.addBooksFromJSON("catalog.json");
     }

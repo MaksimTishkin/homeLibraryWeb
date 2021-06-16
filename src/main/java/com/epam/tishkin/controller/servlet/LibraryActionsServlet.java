@@ -7,11 +7,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.*;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 @WebServlet("/controller")
 public class LibraryActionsServlet extends HttpServlet {
+    private final static Logger logger = LogManager.getLogger(LibraryActionsServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
@@ -29,7 +32,7 @@ public class LibraryActionsServlet extends HttpServlet {
             String view = action.execute(request);
             request.getRequestDispatcher(view).forward(request, response);
         } catch (IOException | ServletException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 }

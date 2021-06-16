@@ -6,6 +6,8 @@ import com.epam.tishkin.models.Book;
 import com.epam.tishkin.models.Bookmark;
 import com.epam.tishkin.models.Role;
 import com.epam.tishkin.models.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserDatabaseDAO implements UserDAO {
+    private final static Logger logger = LogManager.getLogger(UserDatabaseDAO.class);
 
     public User userAuthorization(String login, String password) {
         try (Session session = HibernateUtil.getSession()) {
@@ -65,7 +68,7 @@ public class UserDatabaseDAO implements UserDAO {
                 fullHistory.add(line);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return fullHistory;
     }

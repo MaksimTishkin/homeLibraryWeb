@@ -5,6 +5,8 @@ import com.epam.tishkin.models.Author;
 import com.epam.tishkin.models.AuthorsList;
 import com.epam.tishkin.models.Book;
 import com.google.gson.Gson;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -15,6 +17,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class LibraryDatabaseDAO implements LibraryDAO {
+    private final static Logger logger = LogManager.getLogger(LibraryDatabaseDAO.class);
 
     public boolean addBook(Book book, String authorName) {
         try (Session session = HibernateUtil.getSession()) {
@@ -123,7 +126,7 @@ public class LibraryDatabaseDAO implements LibraryDAO {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return count;
     }

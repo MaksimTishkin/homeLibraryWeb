@@ -16,7 +16,7 @@ public class BlockUserAction implements Action {
         if (userDAO.blockUser(login)) {
             String completeAction = "User deleted - " + login;
             request.setAttribute(resultAttr, completeAction);
-            HistoryWriter.write(completeAction);
+            HistoryWriter.write(request, completeAction);
         } else {
             request.setAttribute(incorrectAttr, "User does not exist - " + login);
         }

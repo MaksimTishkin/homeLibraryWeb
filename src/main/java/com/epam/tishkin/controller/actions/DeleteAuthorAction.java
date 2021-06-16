@@ -20,7 +20,7 @@ public class DeleteAuthorAction implements Action {
         if (libraryDAO.deleteAuthor(authorName)) {
             String completeAction = authorName + " : author deleted";
             request.setAttribute(resultAttr, completeAction);
-            HistoryWriter.write(completeAction);
+            HistoryWriter.write(request, completeAction);
         } else {
             request.setAttribute(incorrectAttr, authorName + " : author not found");
         }

@@ -21,7 +21,7 @@ public class AddNewUserAction implements Action {
         if (userDAO.addUser(login, password)) {
             String completeAction = "New user added - " + login;
             request.setAttribute(resultAttr, completeAction);
-            HistoryWriter.write(completeAction);
+            HistoryWriter.write(request, completeAction);
         } else {
             request.setAttribute(incorrectAttr, "This user already exists - " + login);
         }

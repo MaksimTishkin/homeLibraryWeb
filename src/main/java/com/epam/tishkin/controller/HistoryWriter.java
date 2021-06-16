@@ -1,22 +1,22 @@
 package com.epam.tishkin.controller;
 
 import com.epam.tishkin.models.User;
+import jakarta.servlet.http.HttpServletRequest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class HistoryWriter {
-    private static User user;
+    private final static Logger logger = LogManager.getLogger(HistoryWriter.class);
 
-    public static void setUser(User user) {
-        HistoryWriter.user = user;
-    }
-
-    public static void write(String message) {
+    public static synchronized void write(HttpServletRequest request, String message) {
         try (FileWriter fileWriter = new FileWriter("history.txt", true)) {
+            User user = (User) request.getSession().getAttribute("user");
             fileWriter.write(user.getLogin() + "- " + message + "\r\n");
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 }

@@ -25,7 +25,7 @@ public class DeleteBookAction implements Action {
         if (libraryDAO.deleteBook(title, author)) {
             String completeAction = title + " : book deleted";
             request.setAttribute(resultAttr, completeAction);
-            HistoryWriter.write(completeAction);
+            HistoryWriter.write(request, completeAction);
         } else {
             request.setAttribute(incorrectAttr, title + ": book not found");
         }

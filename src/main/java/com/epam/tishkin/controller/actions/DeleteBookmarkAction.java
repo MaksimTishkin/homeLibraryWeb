@@ -18,7 +18,7 @@ public class DeleteBookmarkAction implements Action {
         if (userDAO.deleteBookmark(title, user)) {
             String completeAction = "Bookmark in the book " + title + " has been removed";
             request.setAttribute(resultAttr, completeAction);
-            HistoryWriter.write(completeAction);
+            HistoryWriter.write(request, completeAction);
         } else {
             request.setAttribute(incorrectAttr, "There is no bookmark in such a book");
         }

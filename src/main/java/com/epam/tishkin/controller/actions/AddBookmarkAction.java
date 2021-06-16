@@ -25,7 +25,7 @@ public class AddBookmarkAction implements Action {
             String completeAction = "Bookmark in the book " + title
                     + " has been added to page " + pageNumber;
             request.setAttribute(resultAttr, completeAction);
-            HistoryWriter.write(completeAction);
+            HistoryWriter.write(request, completeAction);
         } else {
             request.setAttribute(incorrectAttr, "Incorrect book data or the bookmark " +
                     "in this book is already there");

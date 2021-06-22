@@ -15,8 +15,8 @@ public class SearchBooksByYearRangeAction implements Action {
     public String execute(HttpServletRequest request) {
         String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
         String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
-        String firstYear = request.getParameter("firstYear");
-        String secondYear= request.getParameter("secondYear");
+        String firstYear = request.getParameter("startInputYear");
+        String secondYear= request.getParameter("finishInputYear");
         int startYear = isCorrectYear(firstYear);
         int finishYear = isCorrectYear(secondYear);
         if (startYear > 0 && finishYear > 0 && startYear <= finishYear) {

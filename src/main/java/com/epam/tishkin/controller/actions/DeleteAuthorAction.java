@@ -12,7 +12,7 @@ public class DeleteAuthorAction implements Action {
     public String execute(HttpServletRequest request) {
         String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
         String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
-        String authorName = request.getParameter("name");
+        String authorName = request.getParameter("author");
         if (authorName.isEmpty()) {
             request.setAttribute(incorrectAttr, "Incorrect author's name");
             return ConfigurationManager.getProperty("visitorPage");

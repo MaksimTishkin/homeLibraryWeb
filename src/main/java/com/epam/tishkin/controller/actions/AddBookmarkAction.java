@@ -14,7 +14,7 @@ public class AddBookmarkAction implements Action {
         String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
         String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
         String title = request.getParameter("title");
-        String inputPageNumber = request.getParameter("page");
+        String inputPageNumber = request.getParameter("pages");
         int pageNumber = isCorrectPageNumber(inputPageNumber);
         if (pageNumber < 0) {
             request.setAttribute(incorrectAttr, "Incorrect number of pages");

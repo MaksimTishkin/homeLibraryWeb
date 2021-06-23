@@ -15,8 +15,8 @@ public class ShowBookmarksAction implements Action {
     public String execute(HttpServletRequest request) {
         String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
         String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
-        User user = (User) request.getSession().getAttribute("user");
-        List<Bookmark> foundBookmarks = userDAO.showBooksWithBookmarks(user);
+        String login = (String) request.getSession().getAttribute("login");
+        List<Bookmark> foundBookmarks = userDAO.showBooksWithBookmarks(login);
         if (foundBookmarks.isEmpty()) {
             request.setAttribute(incorrectAttr, "There is no bookmark");
         } else {

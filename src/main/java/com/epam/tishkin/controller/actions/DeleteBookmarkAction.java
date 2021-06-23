@@ -14,8 +14,8 @@ public class DeleteBookmarkAction implements Action {
         String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
         String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
         String title = request.getParameter("title");
-        User user = (User) request.getSession().getAttribute("user");
-        if (userDAO.deleteBookmark(title, user)) {
+        String login = (String) request.getSession().getAttribute("login");
+        if (userDAO.deleteBookmark(title, login)) {
             String completeAction = "Bookmark in the book " + title + " has been removed";
             request.setAttribute(resultAttr, completeAction);
             HistoryWriter.write(request, completeAction);

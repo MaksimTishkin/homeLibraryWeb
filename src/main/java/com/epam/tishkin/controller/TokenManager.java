@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.security.Key;
 
-public class TokenManger {
+public class TokenManager {
     private final static Key key;
 
     static {

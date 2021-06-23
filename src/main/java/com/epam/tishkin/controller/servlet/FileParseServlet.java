@@ -2,6 +2,7 @@ package com.epam.tishkin.controller.servlet;
 
 import com.epam.tishkin.controller.ConfigurationManager;
 import com.epam.tishkin.controller.HistoryWriter;
+import com.epam.tishkin.controller.TokenManager;
 import com.epam.tishkin.dao.LibraryDAO;
 import com.epam.tishkin.dao.impl.LibraryDatabaseDAO;
 import jakarta.servlet.ServletException;
@@ -19,12 +20,24 @@ import java.io.*;
 @WebServlet("/fileParse")
 @MultipartConfig
 public class FileParseServlet extends HttpServlet {
+    private final TokenManager tokenManager = new TokenManager();
     private final LibraryDAO libraryDAO = new LibraryDatabaseDAO();
     private final static Logger logger = LogManager.getLogger(FileParseServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-        String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
+        try {
+            if(tokenManager.verifyToken(request)) {
+                execute(request, response);
+            } else {
+                request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+            }
+        } catch (IOException | ServletException e) {
+            logger.error(e.getMessage());
+        }
+    }
+
+    private void execute(HttpServletRequest request, HttpServletResponse response) {
         String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
         try {
             Part filePart = request.getPart("file");
@@ -34,14 +47,11 @@ public class FileParseServlet extends HttpServlet {
                 String completeAction = "number of books added from CSV: " + numberOfBooksAdded;
                 request.setAttribute(resultAttr, completeAction);
                 HistoryWriter.write(request, completeAction);
-            } else if (fileName.endsWith("json")) {
+            } else {
                 int numberOfBooksAdded = addBooksFromJson(filePart);
                 String completeAction = "number of books added from JSON: " + numberOfBooksAdded;
                 request.setAttribute(resultAttr, completeAction);
                 HistoryWriter.write(request, completeAction);
-            }
-            else {
-                request.setAttribute(incorrectAttr, "Incorrect file format");
             }
             String page = ConfigurationManager.getProperty("visitorPage");
             request.getRequestDispatcher(page).forward(request, response);

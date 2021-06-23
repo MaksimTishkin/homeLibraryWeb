@@ -15,8 +15,8 @@ public class AddBookmarkAction implements Action {
         String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
         String title = request.getParameter("title");
         int pageNumber = Integer.parseInt(request.getParameter("pages"));
-        User user = (User) request.getSession().getAttribute("user");
-        if (userDAO.addBookmark(title, pageNumber, user)) {
+        String login = (String) request.getSession().getAttribute("login");
+        if (userDAO.addBookmark(title, pageNumber, login)) {
             String completeAction = "Bookmark in the book " + title
                     + " has been added to page " + pageNumber;
             request.setAttribute(resultAttr, completeAction);

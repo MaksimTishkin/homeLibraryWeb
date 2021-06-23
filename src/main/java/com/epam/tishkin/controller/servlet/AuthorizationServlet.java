@@ -2,7 +2,7 @@ package com.epam.tishkin.controller.servlet;
 
 import com.epam.tishkin.controller.ConfigurationManager;
 import com.epam.tishkin.controller.HistoryWriter;
-import com.epam.tishkin.controller.TokenManger;
+import com.epam.tishkin.controller.TokenManager;
 import com.epam.tishkin.dao.UserDAO;
 import com.epam.tishkin.dao.impl.UserDatabaseDAO;
 import com.epam.tishkin.models.User;
@@ -19,7 +19,7 @@ import java.io.IOException;
 
 @WebServlet("/authorization")
 public class AuthorizationServlet extends HttpServlet {
-    private final TokenManger tokenManger = new TokenManger();
+    private final TokenManager tokenManager = new TokenManager();
     private final UserDAO userDAO = new UserDatabaseDAO();
     private final static Logger logger = LogManager.getLogger(AuthorizationServlet.class);
 
@@ -49,7 +49,7 @@ public class AuthorizationServlet extends HttpServlet {
         String password = request.getParameter("password");
         User user = userDAO.userAuthorization(login, password);
         if (user != null) {
-            tokenManger.createToken(response, login);
+            tokenManager.createToken(response, login);
             request.getSession().setAttribute("login", user.getLogin());
             request.getSession().setAttribute("role", user.getRole());
             HistoryWriter.write(request, "is logged in");
@@ -61,7 +61,7 @@ public class AuthorizationServlet extends HttpServlet {
 
     private String logout(HttpServletRequest request, HttpServletResponse response) {
         HistoryWriter.write(request, "is logged out");
-        Cookie cookie = tokenManger.getCookie(request);
+        Cookie cookie = tokenManager.getCookie(request);
         cookie.setMaxAge(0);
         response.addCookie(cookie);
         request.getSession().invalidate();

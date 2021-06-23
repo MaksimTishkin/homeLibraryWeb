@@ -226,19 +226,19 @@
       <input type="hidden" name="command" value="showHistory">
     </form>
   </div>
-<div class="container text-center">
-  <p class="error">${incorrectInputData}</p>
-  <div class="result">
-  <c:forEach var="message" items="${actionResult}">
-      <c:out value="${message}"/>
-      <br/>
-  </c:forEach>
+  <div class="container text-center result-box">
+    <div class="result">
+    <c:forEach var="message" items="${actionResult}">
+        <c:out value="${message}"/>
+        <br/>
+    </c:forEach>
+    </div>
   </div>
-</div>
 
       </div>
     </div>
     <script src="src/show-form-in-library.js"></script>
+    <script src="src/check-input-data.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
 </body>

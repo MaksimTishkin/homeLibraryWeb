@@ -19,3 +19,7 @@ form {
 .form-control {
     border-color: gray;
 }
+.result-box {
+    border: 3px solid green;
+    margin-top: 15%;
+}

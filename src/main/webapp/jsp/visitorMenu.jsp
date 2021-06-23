@@ -24,6 +24,9 @@
         </select>
         <button class="btn btn-outline-success" type="submit">Найти</button>
       </form>
+      <div class="col-1">
+        <a href="authorization?command=logout">Logout</a>
+      </div>
     </div>
   </nav>
 
@@ -55,7 +58,7 @@
             <li><a class="dropdown-item deleteBookmark" href="#" onclick="return false">Удалить закладку из книги</a></li>
             <li><a class="dropdown-item showBookmarks" href="#" onclick="return false">Показать мои закладки</a></li>
           </ul>
-          <c:if test="${user.getRole() eq 'ADMINISTRATOR'}">
+          <c:if test="${role eq 'ADMINISTRATOR'}">
           <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
             Настройки
           </button>

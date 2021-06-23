@@ -13,8 +13,8 @@ public class HistoryWriter {
 
     public static synchronized void write(HttpServletRequest request, String message) {
         try (FileWriter fileWriter = new FileWriter("history.txt", true)) {
-            User user = (User) request.getSession().getAttribute("user");
-            fileWriter.write(user.getLogin() + "- " + message + "\r\n");
+            String login = (String) request.getSession().getAttribute("login");
+            fileWriter.write(login + "- " + message + "\r\n");
         } catch (IOException e) {
             logger.error(e.getMessage());
         }

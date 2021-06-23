@@ -50,3 +50,7 @@ $('.showHistory').on("click", function() {
 $('.showBookmarks').on("click", function() {
     $('#showBookmarks').submit();
 });
+
+$('.btn').on('click', function() {
+    $('.result-box').css('display', 'block')
+});

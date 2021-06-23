@@ -15,31 +15,14 @@ public class SearchBooksByYearRangeAction implements Action {
     public String execute(HttpServletRequest request) {
         String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
         String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
-        String firstYear = request.getParameter("startInputYear");
-        String secondYear= request.getParameter("finishInputYear");
-        int startYear = isCorrectYear(firstYear);
-        int finishYear = isCorrectYear(secondYear);
-        if (startYear > 0 && finishYear > 0 && startYear <= finishYear) {
-            List<Book> foundBooks = libraryDAO.searchBooksByYearRange(startYear, finishYear);
-            if (foundBooks.isEmpty()) {
-                request.setAttribute(incorrectAttr, "No books found");
-            } else {
-                request.setAttribute(resultAttr, foundBooks);
-            }
+        int startYear = Integer.parseInt(request.getParameter("startInputYear"));
+        int finishYear = Integer.parseInt(request.getParameter("finishInputYear"));
+        List<Book> foundBooks = libraryDAO.searchBooksByYearRange(startYear, finishYear);
+        if (foundBooks.isEmpty()) {
+            request.setAttribute(incorrectAttr, "No books found");
         } else {
-            request.setAttribute(incorrectAttr, "Incorrect year value");
+            request.setAttribute(resultAttr, foundBooks);
         }
         return ConfigurationManager.getProperty("visitorPage");
-    }
-
-    private int isCorrectYear(String inputYear) {
-        int incorrectFlag = -1;
-        int year;
-        try {
-            year = Integer.parseInt(inputYear);
-        } catch (NumberFormatException e) {
-            return incorrectFlag;
-        }
-        return year;
     }
 }

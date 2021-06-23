@@ -14,12 +14,7 @@ public class AddBookmarkAction implements Action {
         String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
         String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
         String title = request.getParameter("title");
-        String inputPageNumber = request.getParameter("pages");
-        int pageNumber = isCorrectPageNumber(inputPageNumber);
-        if (pageNumber < 0) {
-            request.setAttribute(incorrectAttr, "Incorrect number of pages");
-            return ConfigurationManager.getProperty("visitorPage");
-        }
+        int pageNumber = Integer.parseInt(request.getParameter("pages"));
         User user = (User) request.getSession().getAttribute("user");
         if (userDAO.addBookmark(title, pageNumber, user)) {
             String completeAction = "Bookmark in the book " + title
@@ -31,19 +26,5 @@ public class AddBookmarkAction implements Action {
                     "in this book is already there");
         }
         return ConfigurationManager.getProperty("visitorPage");
-    }
-
-    private int isCorrectPageNumber(String inputPage) {
-        int incorrectFlag = -1;
-        int page;
-        try {
-            page = Integer.parseInt(inputPage);
-        } catch (NumberFormatException e) {
-            return incorrectFlag;
-        }
-        if (page <= 0) {
-            return incorrectFlag;
-        }
-        return page;
     }
 }

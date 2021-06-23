@@ -15,10 +15,6 @@ public class AddAuthorAction implements Action {
         String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
         String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
         String authorName = request.getParameter("author");
-        if (authorName.isEmpty()) {
-            request.setAttribute(incorrectAttr, "Incorrect author's name");
-            return ConfigurationManager.getProperty("visitorPage");
-        }
         if (libraryDAO.addAuthor(authorName)) {
             String completeAction = authorName + " : author added";
             request.setAttribute(resultAttr, completeAction);

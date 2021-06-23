@@ -230,6 +230,7 @@
     </form>
   </div>
   <div class="container text-center result-box">
+  <p class="error">${incorrectInputData}</p>
     <div class="result">
     <c:forEach var="message" items="${actionResult}">
         <c:out value="${message}"/>

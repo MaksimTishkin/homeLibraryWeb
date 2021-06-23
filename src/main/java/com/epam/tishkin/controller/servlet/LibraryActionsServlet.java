@@ -1,6 +1,6 @@
 package com.epam.tishkin.controller.servlet;
 
-import com.epam.tishkin.controller.KeyStore;
+import com.epam.tishkin.controller.TokenManger;
 import com.epam.tishkin.controller.actions.Action;
 import com.epam.tishkin.controller.actions.ActionFactory;
 import io.jsonwebtoken.JwtException;
@@ -17,6 +17,7 @@ import java.io.IOException;
 
 @WebServlet("/controller")
 public class LibraryActionsServlet extends HttpServlet {
+    private final TokenManger tokenManger = new TokenManger();
     private final static Logger logger = LogManager.getLogger(LibraryActionsServlet.class);
 
     @Override
@@ -31,7 +32,7 @@ public class LibraryActionsServlet extends HttpServlet {
 
     protected void service(HttpServletRequest request, HttpServletResponse response) {
         try {
-            if (checkToken(request)) {
+            if (tokenManger.verifyToken(request)) {
                 Action action = ActionFactory.getAction(request);
                 String view = action.execute(request);
                 request.getRequestDispatcher(view).forward(request, response);
@@ -41,32 +42,5 @@ public class LibraryActionsServlet extends HttpServlet {
         } catch (IOException | ClassNotFoundException | ServletException e) {
             logger.error(e.getMessage());
         }
-    }
-
-    private boolean checkToken(HttpServletRequest request) {
-        try {
-            Cookie[] cookies = request.getCookies();
-            String cookieName = "token";
-            Cookie cookie = null;
-            if (cookies != null) {
-                for (Cookie currentCookie : cookies) {
-                    if (cookieName.equals(currentCookie.getName())) {
-                        cookie = currentCookie;
-                        break;
-                    }
-                }
-            }
-            if (cookie != null) {
-                Jwts.parserBuilder()
-                        .setSigningKey(KeyStore.getKey())
-                        .build()
-                        .parseClaimsJws(cookie.getValue());
-            } else {
-                return false;
-            }
-        } catch (JwtException e) {
-            return false;
-        }
-        return true;
     }
 }

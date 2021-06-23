@@ -14,14 +14,6 @@ public class DeleteBookAction implements Action {
         String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
         String title = request.getParameter("title");
         String author = request.getParameter("author");
-        if (title.isEmpty()) {
-            request.setAttribute(incorrectAttr, "Incorrect book title");
-            return ConfigurationManager.getProperty("visitorPage");
-        }
-        if (author.isEmpty()) {
-            request.setAttribute(incorrectAttr, "Incorrect author of the book");
-            return ConfigurationManager.getProperty("visitorPage");
-        }
         if (libraryDAO.deleteBook(title, author)) {
             String completeAction = title + " : book deleted";
             request.setAttribute(resultAttr, completeAction);

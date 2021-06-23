@@ -13,10 +13,6 @@ public class DeleteAuthorAction implements Action {
         String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
         String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
         String authorName = request.getParameter("author");
-        if (authorName.isEmpty()) {
-            request.setAttribute(incorrectAttr, "Incorrect author's name");
-            return ConfigurationManager.getProperty("visitorPage");
-        }
         if (libraryDAO.deleteAuthor(authorName)) {
             String completeAction = authorName + " : author deleted";
             request.setAttribute(resultAttr, completeAction);

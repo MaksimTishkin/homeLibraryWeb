@@ -4,7 +4,6 @@ import com.epam.tishkin.controller.ConfigurationManager;
 import com.epam.tishkin.controller.HistoryWriter;
 import com.epam.tishkin.dao.UserDAO;
 import com.epam.tishkin.dao.impl.UserDatabaseDAO;
-import com.epam.tishkin.models.User;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class AddBookmarkAction implements Action {

@@ -5,8 +5,6 @@ import com.epam.tishkin.controller.HistoryWriter;
 import com.epam.tishkin.dao.LibraryDAO;
 import com.epam.tishkin.dao.impl.LibraryDatabaseDAO;
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class AddAuthorAction implements Action {
     private final LibraryDAO libraryDAO = new LibraryDatabaseDAO();

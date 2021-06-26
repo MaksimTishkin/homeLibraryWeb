@@ -85,17 +85,17 @@
           <div class="mb-3">
             <label for="ISBNumber" class="col-form-label">ISBN номер:</label>
             <input type="text" class="form-control" name="ISBNumber" id="ISBNumber" onkeypress="checkAddBook()" onkeyup="checkAddBook()" onblur="checkAddBook()">
-            <p class="warning" id="isbn_warning">ISBN номер должен состоять из 13 цифр</p>
+            <p class="warning" id="isbn_warning"></p>
           </div>
           <div class="mb-3">
             <label for="year" class="col-form-label">Год издания:</label>
             <input type="text" class="form-control" name="year" id="year" onkeypress="checkAddBook()" onkeyup="checkAddBook()" onblur="checkAddBook()">
-            <p class="warning" id="year_warning">Значение в диапазоне от 1500 до 2021 года</p>
+            <p class="warning" id="year_warning"></p>
           </div>
           <div class="mb-3">
             <label for="pages" class="col-form-label">Колличество страниц:</label>
             <input type="text" class="form-control" name="pages" id="pages" onkeypress="checkAddBook()" onkeyup="checkAddBook()" onblur="checkAddBook()">
-            <p class="warning" id="pages_warning">Неверный формат колличества страниц</p>
+            <p class="warning" id="pages_warning"></p>
           </div>
           <button id="addBookButton" type="submit" class="btn btn-outline-success" disabled="disabled">Отправить</button>
         </form>
@@ -135,7 +135,7 @@
           <div class="mb-3">
             <label for="file" class="col-form-label">Загрузить файл:</label>
             <input type="file" class="form-control" name="file" id="file">
-            <p class="warning" id="extension_warning">Формат должен быть CSV или JSON</p>
+            <p class="warning" id="extension_warning"></p>
           </div>
           <button id="addFromCatalogButton" type="submit" class="btn btn-outline-success" disabled="disabled">Отправить</button>
         </form>
@@ -152,7 +152,7 @@
             <input type="text" class="form-control" name="finishInputYear" id="finishInputYear" max="2021" value="1950" onchange="finishRangeInput.value = finishInputYear.value">
             <input type="range" class="form-range" id="finishRangeInput" oninput="finishInputYear.value = finishRangeInput.value" min="1495" max="2021" value="1950">
           </div>
-          <p class="warning" id="yearRange_warning">Начальное значение не может быть больше конечного значения</p>
+          <p class="warning" id="yearRange_warning"></p>
           <button id="searchByYearsButton" type="submit" class="btn btn-outline-success">Отправить</button>
         </form>
 
@@ -165,12 +165,12 @@
           <div class="mb-3">
             <label for="year" class="col-form-label">Год издания:</label>
             <input type="text" class="form-control" name="year" id="year" onkeypress="checkSearchByYearPagesTitle()" onkeyup="checkSearchByYearPagesTitle()" onblur="checkSearchByYearPagesTitle()">
-            <p class="warning" id="year_warning">Значение в диапазоне от 1500 до 2021 года</p>
+            <p class="warning" id="year_warning"></p>
           </div>
           <div class="mb-3">
             <label for="pages" class="col-form-label">Колличество страниц:</label>
             <input type="text" class="form-control" name="pages" id="pages" onkeypress="checkSearchByYearPagesTitle()" onkeyup="checkSearchByYearPagesTitle()" onblur="checkSearchByYearPagesTitle()">
-            <p class="warning" id="pages_warning">Неверный формат колличества страниц</p>
+            <p class="warning" id="pages_warning"></p>
           </div>
           <button id="searchByYearPagesTitleButton" type="submit" class="btn btn-outline-success" disabled="disabled">Отправить</button>
         </form>
@@ -185,7 +185,7 @@
             <div class="mb-3">
               <label for="pages" class="col-form-label">Номер страницы для закладки:</label>
               <input type="text" class="form-control" name="pages" id="pages" onkeypress="checkAddBookmark()" onkeyup="checkAddBookmark()" onblur="checkAddBookmark()">
-              <p class="warning" id="pages_warning">Неверный формат колличества страниц</p>
+              <p class="warning" id="pages_warning"></p>
             </div>
             <button id="addBookmarkButton" type="submit" class="btn btn-outline-success" disabled="disabled">Отправить</button>
           </form>
@@ -241,6 +241,7 @@
         </div>
       </div>
     </div>
+    <script src="src/config.js"></script>
     <script src="src/check-input-year-ranges.js"></script>
     <script src="src/check-input-files-type.js"></script>
     <script src="src/show-form-in-library.js"></script>

@@ -89,54 +89,21 @@ function checkAddAuthor()
      }
  }
 
-
- document.getElementById('file').addEventListener('change', checkFileType);
- function checkFileType() {
-     let uploadFile = document.getElementById('file').files[0];
-     let parts = uploadFile.name.split('.');
-     let position = parts.length - 1;
-     let extension = parts[position];
-     console.log(extension);
-     if (extension === 'csv' || extension === 'json') {
-        document.getElementById('addFromCatalogButton').removeAttribute("disabled");
-        document.getElementById('extension_warning').style.display='none';
-     } else {
-        document.getElementById('addFromCatalogButton').setAttribute("disabled", "true");
-        document.getElementById('extension_warning').style.display='block';
-     }
- }
-
- document.getElementById('startRangeInput').addEventListener('change', checkInputYear);
- document.getElementById('finishRangeInput').addEventListener('change', checkInputYear);
- document.getElementById('startInputYear').addEventListener('change', checkInputYear);
- document.getElementById('finishInputYear').addEventListener('change', checkInputYear);
- function checkInputYear() {
-     let startValue = document.getElementById('startRangeInput').value;
-     let finishValue = document.getElementById('finishRangeInput').value;
-     if (startValue > finishValue) {
-        document.getElementById('searchByYearsButton').setAttribute("disabled", "true");
-        document.getElementById('yearRange_warning').style.display='block';
-     } else {
-        document.getElementById('searchByYearsButton').removeAttribute("disabled");
-        document.getElementById('yearRange_warning').style.display='none';
-     }
- }
-
 function checkIsbn(formName) {
    let currentInput = document.getElementById(formName).querySelector('[name="ISBNumber"]');
    if (currentInput.value === '') {
-    currentInput.style.borderColor = "gray";
+       currentInput.style.borderColor = "gray";
        $('#isbn_warning').css('display', 'none');
        return false;
-   } else if (isNaN(currentInput.value) || currentInput.value.length !== 13) {
-    currentInput.style.borderColor = "red";
-    $('#isbn_warning').css('display', 'inline');
-    return false;
-   } else {
-    currentInput.style.borderColor = "gray";
-    $('#isbn_warning').css('display', 'none');
-    return true;
    }
+   if (isNaN(currentInput.value) || currentInput.value.length !== 13) {
+       currentInput.style.borderColor = "red";
+       $('#isbn_warning').css('display', 'inline');
+       return false;
+   }
+   currentInput.style.borderColor = "gray";
+   $('#isbn_warning').css('display', 'none');
+   return true;
 }
 
 function checkYear(formName) {
@@ -145,15 +112,15 @@ function checkYear(formName) {
         currentInput.style.borderColor = "gray";
         $(`#${formName}`).find('#year_warning').css('display', 'none');
         return false;
-    } else if (isNaN(currentInput.value) || currentInput.value < 1500 || currentInput.value > 2021) {
+    }
+    if (isNaN(currentInput.value) || currentInput.value < 1500 || currentInput.value > 2021) {
         currentInput.style.borderColor = "red";
         $(`#${formName}`).find('#year_warning').css('display', 'inline');
         return false;
-    } else {
-        currentInput.style.borderColor = "gray";
-        $(`#${formName}`).find('#year_warning').css('display', 'none');
-        return true;
     }
+    currentInput.style.borderColor = "gray";
+    $(`#${formName}`).find('#year_warning').css('display', 'none');
+    return true;
 }
 
 function checkPages(formName) {
@@ -162,49 +129,33 @@ function checkPages(formName) {
         currentInput.style.borderColor = "gray";
         $(`#${formName}`).find('#pages_warning').css('display', 'none');
         return false;
-    } else if (isNaN(currentInput.value) || currentInput.value <= 0) {
+    }
+    if (isNaN(currentInput.value) || currentInput.value <= 0) {
         currentInput.style.borderColor = "red";
         $(`#${formName}`).find('#pages_warning').css('display', 'inline');
         return false;
-    } else {
-        currentInput.style.borderColor = "gray";
-        $(`#${formName}`).find('#pages_warning').css('display', 'none');
-        return true;
     }
+    currentInput.style.borderColor = "gray";
+    $(`#${formName}`).find('#pages_warning').css('display', 'none');
+    return true;
 }
 
 function checkTitle(formName) {
     let title = document.getElementById(formName).querySelector('[name="title"]');
-    if (title.value !== '') {
-        return true;
-    } else {
-        return false;
-    }
+    return title.value !== '';
 }
 
 function checkAuthor(formName) {
     let author = document.getElementById(formName).querySelector('[name="author"]');
-    if (author.value !== '') {
-        return true;
-    } else {
-        return false;
-    }
+    return author.value !== '';
 }
 
 function checkLogin(formName) {
     let login = document.getElementById(formName).querySelector('[name="login"]');
-    if (login.value !== '') {
-        return true;
-    } else {
-        return false;
-    }
+    return login.value !== '';
 }
 
 function checkPassword(formName) {
     let password = document.getElementById(formName).querySelector('[name="password"]');
-    if (password.value !== '') {
-        return true;
-    } else {
-        return false;
-    }
+    return password.value !== '';
 }

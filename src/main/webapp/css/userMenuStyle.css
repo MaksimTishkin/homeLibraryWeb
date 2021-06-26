@@ -1,6 +1,9 @@
 .form-select {
     width: 30%;
 }
+.flex-container {
+    display: flex;
+}
 .nav {
     flex-direction: column;
 }

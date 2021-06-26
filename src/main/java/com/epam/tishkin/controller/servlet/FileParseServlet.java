@@ -1,6 +1,7 @@
 package com.epam.tishkin.controller.servlet;
 
 import com.epam.tishkin.controller.ConfigurationManager;
+import com.epam.tishkin.controller.CookieService;
 import com.epam.tishkin.controller.HistoryWriter;
 import com.epam.tishkin.controller.TokenManager;
 import com.epam.tishkin.dao.LibraryDAO;
@@ -20,14 +21,14 @@ import java.io.*;
 @WebServlet("/fileParse")
 @MultipartConfig
 public class FileParseServlet extends HttpServlet {
-    private final TokenManager tokenManager = new TokenManager();
+    private final CookieService cookieService = new CookieService();
     private final LibraryDAO libraryDAO = new LibraryDatabaseDAO();
     private final static Logger logger = LogManager.getLogger(FileParseServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         try {
-            if(tokenManager.verifyToken(request)) {
+            if(cookieService.verifyTokenFromCookie(request)) {
                 execute(request, response);
             } else {
                 request.getRequestDispatcher("jsp/login.jsp").forward(request, response);

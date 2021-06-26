@@ -17,44 +17,22 @@ public class TokenManager {
         key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     }
 
-    public void createToken(HttpServletResponse response, String login) {
-        String jws = Jwts.builder()
+    public String createToken(String login) {
+        return Jwts.builder()
                 .setSubject(login)
                 .signWith(key)
                 .compact();
-        Cookie cookie = new Cookie("token", jws);
-        response.addCookie(cookie);
     }
 
-    public boolean verifyToken(HttpServletRequest request) {
+    public boolean verifyToken(String jws) {
         try {
-        Cookie cookie = getCookie(request);
-        if (cookie != null) {
             Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build()
-                    .parseClaimsJws(cookie.getValue());
-        } else {
-            return false;
-        }
-    } catch (JwtException e) {
+                    .parseClaimsJws(jws);
+        } catch (JwtException e) {
         return false;
     }
         return true;
-}
-
-    public Cookie getCookie(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        String cookieName = "token";
-        Cookie cookie = null;
-        if (cookies != null) {
-            for (Cookie currentCookie : cookies) {
-                if (cookieName.equals(currentCookie.getName())) {
-                    cookie = currentCookie;
-                    break;
-                }
-            }
-        }
-        return cookie;
     }
 }

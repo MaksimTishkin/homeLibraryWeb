@@ -73,7 +73,7 @@ public class UserDatabaseDAO implements UserDAO {
         return fullHistory;
     }
 
-    public boolean addBookmark(String bookTitle, int pageNumber, User user) {
+    public boolean addBookmark(String bookTitle, int pageNumber, String login) {
         LibraryDAO libraryDAO = new LibraryDatabaseDAO();
         try (Session session = HibernateUtil.getSession()) {
             List<Book> foundBooks = libraryDAO.findBookByFullTitle(bookTitle);
@@ -84,7 +84,7 @@ public class UserDatabaseDAO implements UserDAO {
             if (book.getPagesNumber() < pageNumber) {
                 return false;
             }
-            user = session.get(User.class, user.getLogin());
+            User user = session.get(User.class, login);
             for (Bookmark currentBookmark : user.getBookmarks()) {
                 if (currentBookmark.getTitle().equals(bookTitle)) {
                     return false;
@@ -99,10 +99,10 @@ public class UserDatabaseDAO implements UserDAO {
         return true;
     }
 
-    public boolean deleteBookmark(String bookTitle, User user) {
+    public boolean deleteBookmark(String bookTitle, String login) {
         try (Session session = HibernateUtil.getSession()) {
             Transaction transaction = session.beginTransaction();
-            user = session.get(User.class, user.getLogin());
+            User user = session.get(User.class, login);
             Optional<Bookmark> bookmark = user.getBookmarks()
                     .stream()
                     .filter(b -> bookTitle.equals(b.getTitle()))
@@ -117,10 +117,10 @@ public class UserDatabaseDAO implements UserDAO {
         }
     }
 
-    public List<Bookmark> showBooksWithBookmarks(User user) {
+    public List<Bookmark> showBooksWithBookmarks(String login) {
         List<Bookmark> bookmarks;
         try (Session session = HibernateUtil.getSession()) {
-            user = session.get(User.class, user.getLogin());
+            User user = session.get(User.class, login);
             bookmarks = user.getBookmarks();
         }
         return bookmarks;

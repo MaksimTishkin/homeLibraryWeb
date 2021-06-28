@@ -10,7 +10,7 @@ public interface UserDAO {
     boolean addUser(String login, String password);
     boolean blockUser(String login);
     List<String> showHistory();
-    boolean addBookmark(String bookTitle, int pageNumber, User user);
-    boolean deleteBookmark(String bookTitle, User user);
-    List<Bookmark> showBooksWithBookmarks(User user);
+    boolean addBookmark(String bookTitle, int pageNumber, String login);
+    boolean deleteBookmark(String bookTitle, String login);
+    List<Bookmark> showBooksWithBookmarks(String login);
 }

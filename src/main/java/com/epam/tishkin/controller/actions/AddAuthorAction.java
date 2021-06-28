@@ -5,8 +5,6 @@ import com.epam.tishkin.controller.HistoryWriter;
 import com.epam.tishkin.dao.LibraryDAO;
 import com.epam.tishkin.dao.impl.LibraryDatabaseDAO;
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class AddAuthorAction implements Action {
     private final LibraryDAO libraryDAO = new LibraryDatabaseDAO();
@@ -14,11 +12,7 @@ public class AddAuthorAction implements Action {
     public String execute(HttpServletRequest request) {
         String incorrectAttr = ConfigurationManager.getProperty("incorrectDataAttr");
         String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
-        String authorName = request.getParameter("name");
-        if (authorName.isEmpty()) {
-            request.setAttribute(incorrectAttr, "Incorrect author's name");
-            return ConfigurationManager.getProperty("visitorPage");
-        }
+        String authorName = request.getParameter("author");
         if (libraryDAO.addAuthor(authorName)) {
             String completeAction = authorName + " : author added";
             request.setAttribute(resultAttr, completeAction);

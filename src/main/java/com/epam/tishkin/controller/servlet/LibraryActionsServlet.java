@@ -1,5 +1,7 @@
 package com.epam.tishkin.controller.servlet;
 
+import com.epam.tishkin.controller.CookieService;
+import com.epam.tishkin.controller.TokenManager;
 import com.epam.tishkin.controller.actions.Action;
 import com.epam.tishkin.controller.actions.ActionFactory;
 import jakarta.servlet.ServletException;
@@ -14,6 +16,7 @@ import java.io.IOException;
 
 @WebServlet("/controller")
 public class LibraryActionsServlet extends HttpServlet {
+    private final CookieService cookieService = new CookieService();
     private final static Logger logger = LogManager.getLogger(LibraryActionsServlet.class);
 
     @Override
@@ -28,10 +31,14 @@ public class LibraryActionsServlet extends HttpServlet {
 
     protected void service(HttpServletRequest request, HttpServletResponse response) {
         try {
-            Action action = ActionFactory.getAction(request);
-            String view = action.execute(request);
-            request.getRequestDispatcher(view).forward(request, response);
-        } catch (IOException | ServletException | ClassNotFoundException e) {
+            if (cookieService.verifyTokenFromCookie(request)) {
+                Action action = ActionFactory.getAction(request);
+                String view = action.execute(request);
+                request.getRequestDispatcher(view).forward(request, response);
+            } else {
+                request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+            }
+        } catch (IOException | ClassNotFoundException | ServletException e) {
             logger.error(e.getMessage());
         }
     }

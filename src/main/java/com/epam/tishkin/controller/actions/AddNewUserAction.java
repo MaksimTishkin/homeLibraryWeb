@@ -14,10 +14,6 @@ public class AddNewUserAction implements Action {
         String resultAttr = ConfigurationManager.getProperty("resultActionAttr");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        if (login.isEmpty() || password.isEmpty()) {
-            request.setAttribute(incorrectAttr, "Invalid value login/password");
-            return ConfigurationManager.getProperty("visitorPage");
-        }
         if (userDAO.addUser(login, password)) {
             String completeAction = "New user added - " + login;
             request.setAttribute(resultAttr, completeAction);

@@ -1,12 +1,15 @@
 package com.epam.tishkin.controller.servlet;
 
 import com.epam.tishkin.controller.ConfigurationManager;
+import com.epam.tishkin.controller.CookieService;
 import com.epam.tishkin.controller.HistoryWriter;
+import com.epam.tishkin.controller.TokenManager;
 import com.epam.tishkin.dao.UserDAO;
 import com.epam.tishkin.dao.impl.UserDatabaseDAO;
 import com.epam.tishkin.models.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,32 +20,39 @@ import java.io.IOException;
 
 @WebServlet("/authorization")
 public class AuthorizationServlet extends HttpServlet {
+    private final CookieService cookieService = new CookieService();
     private final UserDAO userDAO = new UserDatabaseDAO();
     private final static Logger logger = LogManager.getLogger(AuthorizationServlet.class);
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-        String action = request.getParameter("command");
-        String view;
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+        String view = login(request, response);
         try {
-            if (action.equals("login")) {
-                view = login(request);
-            } else {
-                view = logout(request);
-            }
             request.getRequestDispatcher(view).forward(request, response);
         } catch (IOException | ServletException e) {
             logger.error(e.getMessage());
         }
     }
 
-    private String login(HttpServletRequest request) {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        String view = logout(request, response);
+        try {
+            request.getRequestDispatcher(view).forward(request, response);
+        } catch (IOException | ServletException e) {
+            logger.error(e.getMessage());
+        }
+    }
+
+    private String login(HttpServletRequest request, HttpServletResponse response) {
         String errorAuthorizationAttr = ConfigurationManager.getProperty("errorAuthorizationAttr");
         String login = request.getParameter("name");
         String password = request.getParameter("password");
         User user = userDAO.userAuthorization(login, password);
         if (user != null) {
-            request.getSession().setAttribute("user", user);
+            cookieService.addTokenToCookie(response, login);
+            request.getSession().setAttribute("login", user.getLogin());
+            request.getSession().setAttribute("role", user.getRole());
             HistoryWriter.write(request, "is logged in");
             return ConfigurationManager.getProperty("visitorPage");
         }
@@ -50,8 +60,9 @@ public class AuthorizationServlet extends HttpServlet {
         return ConfigurationManager.getProperty("loginPage");
     }
 
-    private String logout(HttpServletRequest request) {
+    private String logout(HttpServletRequest request, HttpServletResponse response) {
         HistoryWriter.write(request, "is logged out");
+        cookieService.deleteCookie(request, response);
         request.getSession().invalidate();
         return ConfigurationManager.getProperty("indexPage");
     }
